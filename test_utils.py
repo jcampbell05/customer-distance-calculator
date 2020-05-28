@@ -4,35 +4,18 @@ import unittest
 
 class UtilsTestCase(unittest.TestCase):
 
-        
-    # def load_customers(customer_data_path):
-    #     """
-    #     This function is responsible for loading the customers.txt
-    #     and teturning the data using pandas.
-    #     """
-    #     f = open(customer_data_path, "r")
-    #     return pandas.read_json(f, lines=True)
+    def test_when_loading_customers_correct_shape_is_loaded(self):
+        expected_shape = (2, 5)
+        customers = utils.load_customers("./test_fixtures/customers.txt")
+        assert(customers.shape == expected_shape)
 
-    # def write_customers(customers, output_data_path):
-    #     """
-    #     This function is responsible for wriiting the output.txt
-    #     """
-    #     customers.to_json(output_data_path, 'records', lines=True)
+    def test_distance_between_locatons_is_correctly_calculated(self):
+        location_a = ()
+        location_b = ()
 
-    # def calculate_distance_between_locations(location_a, location_b):
-    #     """
-    #     Calculates and returns the distance between two locations in km
-    #     """
-    #     lat_a, lon_a = map(radians, location_a)
-    #     lat_b, lon_b = map(radians, location_b)
-
-    #     angle = acos(
-    #         sin(lat_a) * sin(lat_b) +
-    #         cos(lat_a) * cos(lat_b) *
-    #         cos(lon_a - lon_b)
-    #     )
-
-    #     return EARTH_RADIUS * angle
+        expected_distance = 0
+        distance = utils.calculate_distance_between_locations(location_a, location_b)
+        assert(expected_distance)
 
     # def filter_customers_by_distance_from_location(customers, location, distance):
     #     """
