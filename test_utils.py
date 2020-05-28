@@ -10,46 +10,28 @@ class UtilsTestCase(unittest.TestCase):
         assert(customers.shape == expected_shape)
 
     def test_distance_between_locatons_is_correctly_calculated(self):
-        location_a = ()
-        location_b = ()
+        location_a = (53.339428, -6.257664) # Dublin
+        location_b = (51.903614, -8.468399) # Cork
 
-        expected_distance = 0
+        expected_distance = 218
         distance = utils.calculate_distance_between_locations(location_a, location_b)
-        assert(expected_distance)
+        assert(int(distance) == expected_distance)
 
-    # def filter_customers_by_distance_from_location(customers, location, distance):
-    #     """
-    #     This function filters the list of custoemrs to those within a set distance
-    #     from the location
-    #     """
-    #     customers = generate_distance_from_location_for_customers(customers, location)
-    #     in_range = (customers['distance'] <= distance)
+    def test_when_customers_filtered_by_distance_shape_should_be_correct(self):
+        expected_shape = (0, 5)
+        location = (53.339428, -6.257664) # Dublin
 
-    #     return customers[in_range]
+        customers = utils.load_customers("./test_fixtures/customers.txt")
+        customers = utils.filter_customers_by_distance_from_location(customers, location, 0)
 
-    # def generate_distance_from_location_for_customers(customers, location):
-    #     """
-    #     This function generates a column with the distances from the location for each customer
-    #     """
+        assert(customers.shape == expected_shape)
 
-    #     distances = [generate_distance_from_location_for_customer(row, location) for index, row in customers.iterrows()]
-    #     customers['distance'] = distances
+    def test_when_customers_sorted_by_id_customers_should_be_in_correct_order(self):
 
-    #     return customers
+        expected_user_ids = [4, 5]
 
-    # def generate_distance_from_location_for_customer(customer, location):
-    #     """
-    #     This function generates a distance from the location for a single customer
-    #     """
-    #     latitude = customer['latitude']
-    #     longitude = customer['longitude']
+        customers = utils.load_customers("./test_fixtures/customers.txt")
+        customers = utils.sort_customers_by_user_id(customers)
+        user_ids = list(customers['user_id'])
 
-    #     customer_location = (latitude, longitude)
-        
-    #     return calculate_distance_between_locations(customer_location, location)
-
-    # def sort_customers_by_user_id(customers):
-    #     """
-    #     This function sorts the list of customers by the user_id column
-    #     """
-    #     return customers.sort_values('user_id')
+        assert(user_ids == expected_user_ids)
